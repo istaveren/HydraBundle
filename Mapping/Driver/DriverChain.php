@@ -53,6 +53,11 @@ class DriverChain
      */
     public function loadMetadataForClass($className)
     {
+        // Strip \ from absolute namespaces. To make sure classes that start with \ in the return will work.
+        if (strpos($className, '\\') === 0) {
+             $className = substr($className, 1);
+        }
+        
         foreach ($this->drivers as $namespace => $driver) {
             if (strpos($className, $namespace) === 0) {
                 return $driver->loadMetadataForClass($className);
