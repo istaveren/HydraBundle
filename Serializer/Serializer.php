@@ -299,7 +299,7 @@ class Serializer implements SerializerInterface
 
             $value = $node->getProperty($propertyIri);
             if ($value instanceof \ML\JsonLD\Value) {
-                $value = $value->getValue();
+                $value = $value->toJsonLd()->{'@value'}; // Get the value in the correct type
             }
 
             $property->setValue($entity, $value);  // TODO Fix IRI construction
